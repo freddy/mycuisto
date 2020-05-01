@@ -15,28 +15,30 @@ export default new Vuex.Store({
     cart
   },
   getters: {
-    cartProducts: (state) => {
-      let cart_products = []
-      /*
-      state.cart.forEach((quantity, product_id) => {
-        if (product_id != null) {
-          cart_products.push({
-            product: state.catalogue.products[product_id],
-            quantity: quantity
-          })
+    getProduct (state) {
+      return (id) => {
+        for (const product of state.catalogue.products) {
+          if (product.id === id) {
+            return product
+          }
         }
-      })*/
-
-      return cart_products;
+      }
     }
   },
   mutations: {
     CREATE_CART_ITEM (state, { product_id }) {
-      if (cart[product_id] == undefined) {
-        cart[product_id] = 1;
+
+      let index = state.cart.findIndex((e) => e.product_id === product_id);
+
+      if (index === -1) {
+          state.cart.push({
+            product_id: product_id,
+            quantity: 1
+          });
       } else {
-        cart[product_id] += 1;
+          state.cart[index].quantity += 1;
       }
     }
+
   }
 })

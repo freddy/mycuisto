@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col">
                 <h2>Contenu de la commande:</h2>
-                <CartProductItem :product="cart_product.product" v-for="(cart_product, $productIndex) of cartProducts" :key="$productIndex" />
+                <CartProductItem :product="getProduct(cart_item.product_id)" v-for="(cart_item, $cartItemIndex) of cart" :key="$cartItemIndex" />
             </div>
             <div class="col-6">
             </div>
@@ -21,8 +21,8 @@ import CartProductItem from '../components/CartProductItem.vue'
 export default {
   components: { CartProductItem },
   computed: {
-    ...mapState(['catalogue']),
-    ...mapGetters(['cartProducts'])
+    ...mapState(['cart']),
+    ...mapGetters(['getProduct'])
   }
 }
 </script>

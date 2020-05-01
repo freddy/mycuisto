@@ -12,7 +12,7 @@
 
       <div class="row">
         <div class="col-sm d-flex" v-for="(product, $productIndex) of catalogue.products" :key="$productIndex">
-          <ProductCard :product="product" :product_id="$productIndex" />
+          <ProductCard :product="product" />
         </div>
       </div>
 

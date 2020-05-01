@@ -6,7 +6,7 @@
             <p class="card-text">{{ product.description }}</p>
             <span
             class="btn btn-primary"
-            @click="addToCart($event, product_id)">
+            @click="addToCart($event, product.id)">
                 {{ product.price }}
             </span>
         </div>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  props: ['product','product_id'],
+  props: ['product'],
   methods: {
     addToCart(e, product_id) {
         this.$store.commit('CREATE_CART_ITEM', { product_id })
