@@ -12,34 +12,33 @@
 
                 <div class="card">
                   <div class="card-body">
-                    <form>
+                    <form @submit="saveClient">
                       <div class="form-group">
                         <label for="firstname">Nom</label>
-                        <input type="text" class="form-control" id="firstname" :value="client.firstname">
+                        <input type="text" class="form-control" id="firstname" v-model="firstname">
                       </div>
                       <div class="form-group">
                         <label for="lastname">Prénom</label>
-                        <input type="text" class="form-control" id="lastname" :value="client.lastname">
+                        <input type="text" class="form-control" id="lastname" v-model="lastname">
                       </div>
                       <div class="form-group">
                         <label for="phone">Téléphono</label>
-                        <input type="text" class="form-control" id="phone" :value="client.phone">
+                        <input type="text" class="form-control" id="phone" v-model="phone" required>
                       </div>
                       <label for="email">Email</label>
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text" id="email">@</span>
                         </div>
-                        <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend2" required>
+                        <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend2" v-model="email" required>
                       </div>
                       <div class="form-group">
                         <label for="address">Adresse Postale</label>
-                        <textarea class="form-control" id="address" rows="3" :value="client.address"></textarea>
+                        <textarea class="form-control" id="address" rows="3" v-model="address"></textarea>
                       </div>
                       <button
-                        type="button"
+                        type="submit"
                         class="btn btn-primary btn-lg btn-block"
-                        @click="saveClient($event, client)"
                         >Valider</button>
                     </form>
                   </div>
@@ -63,15 +62,16 @@ export default {
     ...mapGetters(['getCartProduct'])
   },
   methods: {
-    saveClient (e, client) {
+    saveClient: function (e) {
+      console.log(e)
       this.$store.commit(
         'SAVE_CLIENT',
         {
-          firstname: client.firstname,
-          lastname: client.lastname,
-          phone: client.phone,
-          email: client.email,
-          adresse: client.adresse,
+          firstname: e.firstname,
+          lastname: e.lastname,
+          phone: e.phone,
+          email: e.email,
+          adresse: e.adresse,
         }
       );
 
