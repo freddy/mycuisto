@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import './plugins/fontawesome'
+import './assets/styles/index.css'
 import App from './App.vue'
 import router from './router'
 import store from './store'
-import AppButton from './components/AppButton'
+import Header from './components/Header'
 
-Vue.component('AppButton', AppButton)
+Vue.component('Header', Header)
 
 Vue.config.productionTip = false
 
