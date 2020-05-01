@@ -7,12 +7,14 @@ import { saveStatePlugin } from './utils'
 Vue.use(Vuex)
 
 const cart = JSON.parse(localStorage.getItem('cart')) || []
+const client = JSON.parse(localStorage.getItem('client')) || []
 
 export default new Vuex.Store({
   plugins: [saveStatePlugin],
   state: {
     catalogue,
-    cart
+    cart,
+    client
   },
   getters: {
     getCartProduct (state) {
@@ -52,7 +54,17 @@ export default new Vuex.Store({
       if (index !== -1) {
         state.cart[index].quantity = quantity;
       }
-    }
+    },
+
+    SAVE_CLIENT (state, { firstname, lastname, phone, email, address }) {
+        state.client.push({
+          firstname,
+          lastname,
+          phone,
+          email,
+          address
+        });
+    },
 
   }
 })
