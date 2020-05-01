@@ -4,9 +4,9 @@
         <div class="row">
             <div class="col">
                 <h2>Contenu de la commande:</h2>
-                <CartProductItem :product="getProduct(cart_item.product_id)" v-for="(cart_item, $cartItemIndex) of cart" :key="$cartItemIndex" />
+                <CartProductItem :cart_product="getCartProduct(cart_product.product_id)" v-for="(cart_product, $cartItemIndex) of cart" :key="$cartItemIndex" />
             </div>
-            <div class="col-6">
+            <div class="col-8">
             </div>
         </div>
     </div>
@@ -22,7 +22,7 @@ export default {
   components: { CartProductItem },
   computed: {
     ...mapState(['cart']),
-    ...mapGetters(['getProduct'])
+    ...mapGetters(['getCartProduct'])
   }
 }
 </script>

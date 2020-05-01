@@ -15,11 +15,16 @@ export default new Vuex.Store({
     cart
   },
   getters: {
-    getProduct (state) {
+    getCartProduct (state) {
       return (id) => {
-        for (const product of state.catalogue.products) {
-          if (product.id === id) {
-            return product
+        for (const cart_product of state.cart) {
+          for (const product of state.catalogue.products) {
+            if (product.id === id && cart_product.product_id === id) {
+              return {
+                product: product,
+                quantity: cart_product.quanty
+              }
+            }
           }
         }
       }
@@ -37,6 +42,15 @@ export default new Vuex.Store({
           });
       } else {
           state.cart[index].quantity += 1;
+      }
+    },
+
+    UPDATE_QUANTITY (state, { product_id, quantity }) {
+
+      let index = state.cart.findIndex((e) => e.product_id === product_id);
+
+      if (index !== -1) {
+        state.cart[index].quantity = quantity;
       }
     }
 
