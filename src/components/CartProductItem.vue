@@ -5,11 +5,16 @@
         <img :src="cart_product.product.image_path" class="card-img" :alt="cart_product.product.image_alt">
         </div>
         <div class="col-md-8">
-        <div class="card-body">
-            <h5 class="card-title">{{ cart_product.product.title }}</h5>
-            <p class="card-text">{{ cart_product.product.description }}</p>
-            <input type="number" @change="updateQuantity($event, cart_product.product.id)" :value="cart_product.quantity" />
-        </div>
+          <div class="card-body">
+              <h5 class="card-title">{{ cart_product.product.title }}</h5>
+              <p class="card-text">{{ cart_product.product.description }}</p>
+
+              <div class="form-group">
+                <label for="quantity">Quantité</label>
+                <input type="number" class="form-control" id="quantity" min="0" step="1" :value="cart_product.quantity" @change="updateQuantity($event, cart_product.product.id)" />
+              </div>
+              <p class="card-text"> {{ getPrice(cart_product.product.price, cart_product.quantity) }}</p>
+          </div>
         </div>
     </div>
 </div>
@@ -20,8 +25,10 @@ export default {
   props: ['cart_product'],
   methods: {
     updateQuantity(e, product_id) {
-        console.log(product_id)
       this.$store.commit('UPDATE_QUANTITY', { product_id, quantity: e.target.value });
+    },
+    getPrice (price, quantity) {
+      return "Prix: " + price * quantity + " €"
     }
   }
 }
