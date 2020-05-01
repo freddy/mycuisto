@@ -9,23 +9,34 @@ Vue.use(Vuex)
 const cart = JSON.parse(localStorage.getItem('cart')) || []
 
 export default new Vuex.Store({
-    plugins: [saveStatePlugin],
-    state: {
-        catalogue,
-        cart
-    },
-
-    mutations: {
-        CREATE_CART_ITEM (state, { product_id }) {
-            if (cart && cart.id === product_id) {
-                UPDATE_CART_ITEM(product_id)
-            } else {
-                cart.push({
-                    id: product_id,
-                    quantity: 1
-                })
-            }
-
+  plugins: [saveStatePlugin],
+  state: {
+    catalogue,
+    cart
+  },
+  getters: {
+    cartProducts: (state) => {
+      let cart_products = []
+      /*
+      state.cart.forEach((quantity, product_id) => {
+        if (product_id != null) {
+          cart_products.push({
+            product: state.catalogue.products[product_id],
+            quantity: quantity
+          })
         }
+      })*/
+
+      return cart_products;
     }
+  },
+  mutations: {
+    CREATE_CART_ITEM (state, { product_id }) {
+      if (cart[product_id] == undefined) {
+        cart[product_id] = 1;
+      } else {
+        cart[product_id] += 1;
+      }
+    }
+  }
 })
