@@ -1,6 +1,6 @@
 <template>
    <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
     <router-link
       :to="{ name: 'home' }"
       class="navbar-brand"
