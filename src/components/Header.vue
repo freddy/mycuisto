@@ -28,13 +28,8 @@
 
 <script>
 export default {
-
 }
 </script>
 
 <style>
-
-.nav {
-  @apply relative flex flex-row bg-white pin mx-4 m-32 mx-auto py-4 text-left rounded shadow;
-}
 </style>
