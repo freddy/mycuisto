@@ -1,27 +1,28 @@
 <template>
   <div id="app">
-    <Header/>
-    <router-view/>
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
-<style>
-@import 'assets/styles/tailwind.postcss';
+<script>
+import HelloWorld from './components/HelloWorld.vue'
 
-body, html {
-  height: 100%;
+export default {
+  name: 'App',
+  components: {
+    HelloWorld
+  }
 }
+</script>
 
+<style>
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100%;
-}
-
-.container {
-  @apply mx-auto;
+  margin-top: 60px;
 }
 </style>
