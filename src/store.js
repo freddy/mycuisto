@@ -22,7 +22,7 @@ export default new Vuex.Store({
             if (product.id === id && cart_product.product_id === id) {
               return {
                 product: product,
-                quantity: cart_product.quanty
+                quantity: cart_product.quantity
               }
             }
           }
