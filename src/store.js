@@ -17,24 +17,23 @@ export default new Vuex.Store({
     client
   },
   getters: {
-    getCartProduct (state) {
-      return (id) => {
-        for (const cart_product of state.cart) {
-          for (const product of state.catalogue.products) {
-            if (product.id === id && cart_product.product_id === id) {
-              return {
-                product: product,
-                quantity: cart_product.quantity
-              }
-            }
-          }
+    getCartProducts: state => {
+      return state.cart.map(c => {
+        return {
+          product: state.catalogue.products.find(p => p.id === c.product_id),
+          quantity: c.quantity
         }
-      }
+      })
+    },
+    /*getCartProduct: state => (id) => {
+      return state.getters.getCartProducts.find(e => e.product.id == id)
+    },*/
+    getNotInCartProducts: state => {
+      return state.catalogue.products.filter(e => state.cart.map(e => e.product_id).indexOf(e.id) === -1)
     }
   },
   mutations: {
     CREATE_CART_ITEM (state, { product_id }) {
-
       let index = state.cart.findIndex((e) => e.product_id === product_id);
 
       if (index === -1) {
@@ -43,16 +42,19 @@ export default new Vuex.Store({
             quantity: 1
           });
       } else {
-          state.cart[index].quantity += 1;
+        state.cart[index].quantity = parseInt(state.cart[index].quantity) + 1;
       }
     },
 
     UPDATE_QUANTITY (state, { product_id, quantity }) {
-
       let index = state.cart.findIndex((e) => e.product_id === product_id);
 
       if (index !== -1) {
-        state.cart[index].quantity = quantity;
+        if (quantity !== 0) {
+          state.cart[index].quantity = quantity;
+        } else {
+          state.cart.splice(index, 1);
+        }
       }
     },
 
