@@ -48,32 +48,73 @@
 
               <div class="card">
                 <div class="card-body">
-                  <form @submit="saveClient">
+                  <form
+                    id="form-client"
+                    @submit.prevent="saveClient"
+                  >
                     <h3>Coordonnées</h3>
                     <div class="form-row">
                       <div class="col">
-                        <input type="text" class="form-control" id="firstname" v-model="firstname" placeholder="Prénom">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="firstname"
+                          name="firstname"
+                          v-model="firstname"
+                          placeholder="Prénom"
+                        >
                       </div>
                       <div class="col">
-                        <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Nom">
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="lastname"
+                          name="lastname"
+                          v-model="lastname"
+                          placeholder="Nom"
+                        >
                       </div>
                     </div>
                     <div class="form-group mt-3">
-                        <input type="text" class="form-control" id="phone" v-model="phone" placeholder="Téléphone" required>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="phone"
+                          v-model="phone"
+                          name="phone"
+                          placeholder="Téléphone"
+                          required
+                        >
                     </div>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="email">@</span>
                       </div>
-                      <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend2" v-model="email" placeholder="Email"  required>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="email"
+                        aria-describedby="inputGroupPrepend2"
+                        name="email"
+                        v-model="email"
+                        placeholder="Email"
+                        required
+                      >
                     </div>
                     <div class="form-group mt-3">
-                        <textarea class="form-control" id="address" rows="3" v-model="address" placeholder="Adresse postale"></textarea>
+                        <textarea
+                          class="form-control"
+                          id="address"
+                          rows="3"
+                          name="address"
+                          v-model="address"
+                          placeholder="Adresse postale"
+                        ></textarea>
                     </div>
                     <button
                       type="submit"
                       class="btn btn-primary btn-lg btn-block"
-                      >Valider la commande</button>
+                    >Valider la commande</button>
                   </form>
                 </div>
               </div>
@@ -114,20 +155,35 @@ export default {
       return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+' €'
     }
   },
+  data() {
+    return {
+      firstname: "",
+      lastname: "",
+      phone: "",
+      email: "",
+      address: "",
+    }
+  },
   methods: {
-    saveClient: function (e) {
-      console.log(e)
+    saveClient () {
+      let client = {
+        firstname: this.firstname,
+        lastname: this.lastname,
+        phone: this.phone,
+        email: this.email,
+        address: this.address,
+      }
+
+      this.firstname = null,
+      this.lastname = null,
+      this.phone = null,
+      this.email = null,
+      this.address = null,
+
       this.$store.commit(
         'SAVE_CLIENT',
-        {
-          firstname: e.firstname,
-          lastname: e.lastname,
-          phone: e.phone,
-          email: e.email,
-          adresse: e.adresse,
-        }
+        client
       );
-
     }
   }
 }
