@@ -1,9 +1,10 @@
 <template>
-  <div class="home">
+  <div class="order">
     <div class="container">
         <div class="row">
             <div class="col">
               <h2>Contenu de la commande:</h2>
+              <p>Passez commande afin d'être livré dans les prochains jours</p>
               <CartProductItem :cart_product="cart_product" v-for="(cart_product, $cartItemIndex) of getCartProducts" :key="'cart-'+$cartItemIndex" />
 
               <template v-if="hasEmptyCart">
@@ -11,10 +12,14 @@
               </template>
               <template v-if="hasSuggestedProducts">
                 <h3>Envie de vous régaler d'avantage ?</h3>
-                <ProductCard :product="product" v-for="(product, $productIndex) of getNotInCartProducts" :key="'product-'+$productIndex" />
+                <div class="row">
+                <div class="col-sm-4" v-for="(product, $productIndex) of getNotInCartProducts" :key="'product-'+$productIndex" >
+                  <ProductCard :product="product" />
+                </div>
+                </div>
               </template>
             </div>
-            <div class="col-6">
+            <div class="col-4">
               <h2>Finaliser la commande</h2>
 
               <table class="table">
@@ -29,14 +34,14 @@
                   <tr :cart_product="cart_product" v-for="(cart_product, $cartItemIndex) of getCartProducts" :key="'total-'+$cartItemIndex">
                     <td scope="row">{{ cart_product.product.title }}</td>
                     <td>{{ cart_product.quantity }}</td>
-                    <td>{{ cart_product.product.price * cart_product.quantity }}</td>
+                    <td>{{ cart_product.product.price * cart_product.quantity | currencyFormat }}</td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
                     <th scope="row">Total</th>
                     <td></td>
-                    <td>{{ totalPrice }}</td>
+                    <td>{{ totalPrice | currencyFormat }}</td>
                   </tr>
                 </tfoot>
               </table>
@@ -44,33 +49,31 @@
               <div class="card">
                 <div class="card-body">
                   <form @submit="saveClient">
-                    <div class="form-group">
-                      <label for="firstname">Nom</label>
-                        <input type="text" class="form-control" id="firstname" v-model="firstname">
+                    <h3>Coordonnées</h3>
+                    <div class="form-row">
+                      <div class="col">
+                        <input type="text" class="form-control" id="firstname" v-model="firstname" placeholder="Prénom">
+                      </div>
+                      <div class="col">
+                        <input type="text" class="form-control" id="lastname" v-model="lastname" placeholder="Nom">
+                      </div>
                     </div>
-                    <div class="form-group">
-                      <label for="lastname">Prénom</label>
-                        <input type="text" class="form-control" id="lastname" v-model="lastname">
+                    <div class="form-group mt-3">
+                        <input type="text" class="form-control" id="phone" v-model="phone" placeholder="Téléphone" required>
                     </div>
-                    <div class="form-group">
-                      <label for="phone">Téléphone</label>
-                        <input type="text" class="form-control" id="phone" v-model="phone" required>
-                    </div>
-                    <label for="email">Email</label>
                     <div class="input-group">
                       <div class="input-group-prepend">
                         <span class="input-group-text" id="email">@</span>
                       </div>
-                        <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend2" v-model="email" required>
+                      <input type="text" class="form-control" id="email" aria-describedby="inputGroupPrepend2" v-model="email" placeholder="Email"  required>
                     </div>
-                    <div class="form-group">
-                      <label for="address">Adresse Postale</label>
-                        <textarea class="form-control" id="address" rows="3" v-model="address"></textarea>
+                    <div class="form-group mt-3">
+                        <textarea class="form-control" id="address" rows="3" v-model="address" placeholder="Adresse postale"></textarea>
                     </div>
                     <button
                       type="submit"
                       class="btn btn-primary btn-lg btn-block"
-                      >Valider</button>
+                      >Valider la commande</button>
                   </form>
                 </div>
               </div>
@@ -104,6 +107,12 @@ export default {
       }, 0)
     }
 
+  },
+  filters: {
+    currencyFormat (value) {
+      let val = (value/1).toFixed(2).replace('.', ',')
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")+' €'
+    }
   },
   methods: {
     saveClient: function (e) {

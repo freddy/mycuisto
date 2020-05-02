@@ -18,7 +18,7 @@
           :to="{ name: 'order' }"
           class="nav-link"
           >
-            Order
+            Passer commande
           </router-link>
         </li>
       </ul>
