@@ -11,8 +11,8 @@
     >
       {{ link.name }}
     </v-btn>
-    <v-btn @click="toggleTheme" text rounded>
-      <v-icon mdi mdi-phone />
+    <v-btn text rounded>
+      <v-icon v-html="'$vuetify.icons.phone'" />
       06 12345678
     </v-btn>
   </v-app-bar>

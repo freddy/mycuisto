@@ -2,7 +2,9 @@
   <v-app>
     <Header :links="links" />
     <v-content>
-      <router-view></router-view>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
     </v-content>
     <v-footer color="primary lighten-1" padless>
       <v-layout justify-center wrap>

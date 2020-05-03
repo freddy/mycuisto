@@ -1,19 +1,30 @@
 <template>
-    <div class="card">
-        <img :src="getImgUrl(product.image_path)" class="card-img-top" :alt="product.image_alt">
+    <v-card
+      class="mx-auto"
+      max-width="320"
+    >
+      <v-img
+        :src="getImgUrl(product.image_path)"
+        class="white--text align-end"
+        gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
+        height="200px"
+      >
+        <v-card-title v-text="product.title"></v-card-title>
+      </v-img>
 
-        <div class="card-body">
-            <h5 class="card-title">{{ product.title }}</h5>
-            <p class="card-text">{{ product.description }}</p>
-            <p class="badge badge-secondary price">{{ product.price | currencyFormat }}</p>
-            <div class="mt-2">
-
-            <span class="btn btn-primary"
-                @click="addToCart($event, product.id)"
-                >ajouter</span>
-            </div>
-        </div>
-    </div>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          small
+          raised
+          color="primary"
+          @click="addToCart($event, product.id)"
+        >
+          <v-icon class="mr-1" size="medium">mdi-cart</v-icon>
+          Ajouter
+        </v-btn>
+      </v-card-actions>
+    </v-card>
 </template>
 
 <script>
