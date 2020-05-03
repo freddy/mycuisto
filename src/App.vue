@@ -2,7 +2,10 @@
   <v-app>
     <Header :links="links" />
     <v-content>
-      <v-container fluid>
+      <v-container
+        class="pa-0"
+        fluid
+      >
         <router-view></router-view>
       </v-container>
     </v-content>

@@ -10,7 +10,7 @@
         justify="center"
       >
         <v-col class="text-center" cols="12">
-          <h1 class="display-1 font-weight-thin mb-4">Bon Appétit !</h1>
+          <h1 class="display-1 font-weight-thin mb-4 font-weight-bold">Bon Appétit !</h1>
           <h4 class="subheading"> Massimo confectionne chaque week-ends des spécialités italiennes pratiques pour manger chez vous le soir</h4>
           <v-btn
             color="white"
