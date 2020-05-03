@@ -184,6 +184,8 @@ export default {
         'SAVE_CLIENT',
         client
       );
+
+      this.$router.push({ name: 'cart_validation' })
     }
   }
 }

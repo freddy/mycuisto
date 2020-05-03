@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import Order from './views/Order.vue'
+import CartValidation from './views/CartValidation.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/order',
       name: 'order',
       component: Order
+    },
+    {
+      path: '/validation',
+      name: 'cart_validation',
+      component: CartValidation
     }
   ]
 })
