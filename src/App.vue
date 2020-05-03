@@ -1,24 +1,53 @@
 <template>
-  <div id="app" class='d-flex flex-column h-100'>
-    <Header/>
-    <router-view/>
-    <Footer/>
-  </div>
+  <v-app>
+    <Header :links="links" />
+    <v-content>
+      <router-view></router-view>
+    </v-content>
+    <v-footer color="primary lighten-1" padless>
+      <v-layout justify-center wrap>
+        <v-btn
+          v-for="link in links"
+          :key="`${link.label}-footer-link`"
+          color="white"
+          text
+          rounded
+          class="my-2"
+          :to="link.url"
+        >
+          {{ link.label }}
+        </v-btn>
+        <v-flex primary lighten-2 py-4 text-center white--text xs12>
+          {{ new Date().getFullYear() }} — <strong>Vuetify Dashboard</strong>
+        </v-flex>
+      </v-layout>
+    </v-footer>
+  </v-app>
 </template>
 
 <script>
-import Header from './components/Header.vue'
-import Footer from './components/Footer.vue'
-
+import Header from '@/components/Header.vue'
 export default {
   name: 'App',
-  components: {
-    Header,
-    Footer
+  components: { Header },
+  created() {
+      this.$router.options.routes.forEach(route => {
+          this.links.push({
+              name: route.name,
+              path: route.path
+          })
+      })
+  },
+  data() {
+    return {
+          links: []
+    }
+  },
+  methods: {
+    toggleTheme() {
+      this.$vuetify.theme.themes.dark.anchor = '#41B883'
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    }
   }
 }
 </script>
-
-<style>
-
-</style>

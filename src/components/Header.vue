@@ -1,33 +1,26 @@
 <template>
-   <!-- Fixed navbar -->
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <router-link
-      :to="{ name: 'home' }"
-      class="navbar-brand"
-      >
-        My Cuisto
-      </router-link>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item"
-          :class="{ active: true }" >
-          <router-link
-          :to="{ name: 'order' }"
-          class="nav-link"
-          >
-            Passer commande
-          </router-link>
-        </li>
-      </ul>
-    </div>
-  </nav>
+  <v-app-bar app color="primary" dark>
+    <v-toolbar-title>Vuetify Dashboard</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-btn
+      v-for="link in links"
+      :key="`${link.name}-header-link`"
+      text
+      rounded
+      :to="link.path"
+    >
+      {{ link.name }}
+    </v-btn>
+    <v-btn @click="toggleTheme" text rounded>
+      <v-icon mdi mdi-phone />
+      06 12345678
+    </v-btn>
+  </v-app-bar>
 </template>
 
 <script>
 export default {
+  props: ['links']
 }
 </script>
 
