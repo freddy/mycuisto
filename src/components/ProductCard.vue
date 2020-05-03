@@ -13,6 +13,12 @@
       </v-img>
 
       <v-card-actions>
+
+        <v-btn
+          small
+          left
+          disabled
+        >{{ product.price | currencyFormat }} / unit</v-btn>
         <v-spacer></v-spacer>
         <v-btn
           small
