@@ -9,7 +9,8 @@
         <router-view></router-view>
       </v-container>
     </v-content>
-    <v-footer color="primary lighten-1" padless>
+    <Footer />
+    <!-- <v-footer color="primary lighten-1" padless>
       <v-layout justify-center wrap>
         <v-btn
           v-for="link in links"
@@ -23,25 +24,26 @@
           {{ link.label }}
         </v-btn>
         <v-flex primary lighten-2 py-4 text-center white--text xs12>
-          {{ new Date().getFullYear() }} — <strong>Vuetify Dashboard</strong>
+          {{ new Date().getFullYear() }} — <strong>My Cuisto</strong>
         </v-flex>
       </v-layout>
-    </v-footer>
+    </v-footer> -->
   </v-app>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
+import Footer from '@/components/Footer.vue'
 export default {
   name: 'App',
-  components: { Header },
+  components: { Header, Footer },
   created() {
-      this.$router.options.routes.forEach(route => {
-          this.links.push({
-              name: route.name,
-              path: route.path
-          })
+    this.$router.options.routes.forEach(route => {
+      this.links.push({
+        name: route.name,
+        path: route.path
       })
+    })
   },
   data() {
     return {
