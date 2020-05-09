@@ -39,7 +39,7 @@
                   size="125"
                   tile
                 >
-                  <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                  <v-img :src="require('@/assets/images/massimo.jpg')"></v-img>
                 </v-avatar>
                 <div>
                   <v-card-title
