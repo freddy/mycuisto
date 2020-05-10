@@ -15,8 +15,10 @@
           >
             <v-expansion-panel-header class="justify-self-start">
               <div>
-                <v-icon>mdi-map-marker-question-outline</v-icon>
-                <span class="pa-2">{{ item.title }}</span>
+                <strong>
+                  <v-icon>mdi-map-marker-question-outline</v-icon>
+                  <span class="pa-2">{{ item.title }}</span>
+                </strong>
               </div>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
