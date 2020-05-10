@@ -14,7 +14,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr :cart_product="cart_product" v-for="(cart_product, $cartItemIndex) of cart_products" :key="'total-'+$cartItemIndex">
+                    <tr :cart_product="cart_product" v-for="(cart_product, $cartItemIndex) of getCartProducts" :key="'total-'+$cartItemIndex">
                         <td scope="row">{{ cart_product.product.title }}</td>
                         <td class="text-center">{{ cart_product.quantity }}</td>
                         <td class="text-center">{{ cart_product.product.price * cart_product.quantity | currencyFormat }}</td>
@@ -32,8 +32,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
-  props: ['cart_products'],
   filters: {
     currencyFormat (value) {
       let val = (value/1).toFixed(2).replace('.', ',')
@@ -41,8 +41,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters(['getCartProducts']),
     totalPrice () {
-      return this.cart_products.reduce(
+      return this.$store.getters.getCartProducts.reduce(
         (acc, cart_product) => {
           return acc + cart_product.quantity * cart_product.product.price
       }, 0)

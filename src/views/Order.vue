@@ -24,7 +24,7 @@
             cols="12"
             md="6"
             v-if="!hasEmptyCart">
-            <OrderSummary :cart_products="getCartProducts" />
+            <OrderSummary />
             <div class="mb-5" />
             <CustomerForm />
           </v-col>
