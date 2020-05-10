@@ -1,6 +1,15 @@
 <template>
   <v-app-bar app color="primary" dark>
-    <v-toolbar-title>My Cuisto</v-toolbar-title>
+    <v-toolbar-title
+    >
+    <v-btn
+      text
+      to="/"
+      large
+    >
+      My Cuisto
+    </v-btn>
+    </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn
       v-for="link in links"
