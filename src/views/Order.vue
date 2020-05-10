@@ -7,6 +7,7 @@
           <v-col>
             <CartProductItem :cart_product="cart_product" v-for="(cart_product, $cartItemIndex) of getCartProducts" :key="'cart-'+$cartItemIndex" />
 
+<<<<<<< HEAD
             <template v-if="hasEmptyCart">
               <h2 class="mb-3">Aucun produit sélectionné pour l'instant !</h2>
             </template>
@@ -29,6 +30,27 @@
             <CustomerForm />
           </v-col>
         </v-row>
+=======
+              <template v-if="hasEmptyCart">
+                <h2 class="mb-3">Aucun produit sélectionné pour l'instant !</h2>
+              </template>
+              <template v-if="hasSuggestedProducts">
+                <v-divider class="mb-3" />
+                <h3>Envie de vous régaler d'avantage ?</h3>
+                <div class="row">
+                <div class="col-sm-4" v-for="(product, $productIndex) of getNotInCartProducts" :key="'product-'+$productIndex" >
+                  <ProductCard :product="product" />
+                </div>
+                </div>
+              </template>
+            </div>
+            <div class="col-5" v-if="!hasEmptyCart">
+              <OrderSummary :cart_products="getCartProducts" />
+              <div class="mb-5" />
+              <CustomerForm />
+            </div>
+        </div>
+>>>>>>> master
     </div>
   </div>
 
