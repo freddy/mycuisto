@@ -4,13 +4,20 @@
       <v-spacer></v-spacer>
       <v-col cols="10">
         <h1 class="pa-5">Foire aux questions</h1>
-        <v-expansion-panels inset>
+        <v-expansion-panels
+          inset
+          focusable
+          hover
+        >
           <v-expansion-panel
             v-for="(item,i) in items"
             :key="`${i}-faq`"
           >
-            <v-expansion-panel-header>
-              {{ item.title }}
+            <v-expansion-panel-header class="justify-self-start">
+              <div>
+                <v-icon>mdi-map-marker-question-outline</v-icon>
+                <span class="pa-2">{{ item.title }}</span>
+              </div>
             </v-expansion-panel-header>
             <v-expansion-panel-content>
               {{ item.description }}
