@@ -27,7 +27,7 @@ export default new Router({
       component: Faq
     },
     {
-      path: '/faq',
+      path: '/validation',
       name: 'cart_validation',
       component: CartValidation
     }
