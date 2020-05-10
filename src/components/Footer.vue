@@ -25,8 +25,11 @@
         </v-btn>
       </v-card-title>
 
-      <v-container>
-        <v-row no-gutters>
+      <v-container fluid>
+        <v-row
+          align="center"
+          justify="center"
+        >
           <v-col cols="4">
             <v-card
               class="black--text"
