@@ -89,7 +89,7 @@ export default {
   data() {
     return {
       icons: [
-        {'icon': 'mdi-facebook', 'link': "https://www.facebook.com/pg/PizzeriaChezMassimo"},
+        {'icon': 'mdi-facebook', 'link': "https://www.facebook.com/comeprimaa"},
         {'icon': 'mdi-twitter', 'link': "https://twitter.com/PizzaPizzaLtd"},
         {'icon': 'mdi-instagram', 'link': "https://www.instagram.com/andpizza/"},
       ],
