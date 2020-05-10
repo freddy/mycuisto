@@ -1,33 +1,30 @@
 <template>
     <div>
-        <v-card outlined>
-            <v-card-title>
-                <h4>Résumé</h4>
-            </v-card-title>
-
+          <v-card outlined>
+              <v-card-title>
+                  <h4>Résumé</h4>
+              </v-card-title>
             <v-simple-table dense>
                 <template v-slot:default>
                     <thead>
                     <tr>
                         <th class="text-left">Produit</th>
-                        <th class="text-left">Qté</th>
-                        <th class="text-left">Prix</th>
+                        <th class="text-center">Quantité</th>
+                        <th class="text-center">Prix</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr :cart_product="cart_product" v-for="(cart_product, $cartItemIndex) of cart_products" :key="'total-'+$cartItemIndex">
                         <td scope="row">{{ cart_product.product.title }}</td>
-                        <td>{{ cart_product.quantity }}</td>
-                        <td>{{ cart_product.product.price * cart_product.quantity | currencyFormat }}</td>
+                        <td class="text-center">{{ cart_product.quantity }}</td>
+                        <td class="text-center">{{ cart_product.product.price * cart_product.quantity | currencyFormat }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row" class="subtitle-1 font-weight-bold">Total</th>
+                        <td></td>
+                        <th class="text-center subtitle-1 font-weight-bold">{{ totalPrice | currencyFormat }}</th>
                     </tr>
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <th scope="row">Total</th>
-                        <td></td>
-                        <td>{{ totalPrice | currencyFormat }}</td>
-                    </tr>
-                    </tfoot>
                 </template>
             </v-simple-table>
         </v-card>

@@ -20,8 +20,9 @@
                 </div>
               </template>
             </div>
-            <div class="col-5">
+            <div class="col-5" v-if="!hasEmptyCart">
               <OrderSummary :cart_products="getCartProducts" />
+              <div class="mb-5" />
               <CustomerForm />
             </div>
         </div>
@@ -37,6 +38,7 @@ import CartProductItem from '@/components/CartProductItem.vue'
 import ProductCard from '@/components/ProductCard.vue'
 import OrderSummary from '@/components/OrderSummary.vue'
 import CustomerForm from '@/components/CustomerForm.vue'
+
 export default {
   components: { CartProductItem, ProductCard, OrderSummary, CustomerForm },
   computed: {
