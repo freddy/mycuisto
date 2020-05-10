@@ -1,25 +1,41 @@
 <template>
-    <v-card outlined>
-    <h3>Coordonnées</h3>
-    <ValidationObserver ref="observer" v-slot="{ validate, reset }">
-        <form id="form-client" @submit.prevent="saveClient">
-        <ValidationProvider v-slot="{ errors }" name="firstname" rules="required|max:40">
-            <v-text-field
-            v-model="firstname"
-            :error-messages="errors"
-            label="Prénom"
-            required
-            ></v-text-field>
-        </ValidationProvider>
-        <ValidationProvider v-slot="{ errors }" name="lastname" rules="required|max:40">
-            <v-text-field
-            v-model="lastname"
-            :error-messages="errors"
-            label="Nom"
-            required
-            ></v-text-field>
-        </ValidationProvider>
-        <ValidationProvider v-slot="{ errors }" name="phone" rules="required|max:12">
+  <v-card outlined>
+    <v-card-title><h4>Coordonnées</h4></v-card-title>
+    <ValidationObserver ref="observer">
+      <form id="form-client" @submit.prevent="saveClient">
+        <v-container class="pt-0">
+          <v-row class="py-0">
+            <v-col
+              cols="12"
+              md="6"
+              class="py-0"
+              >
+              <ValidationProvider v-slot="{ errors }" name="firstname" rules="required|max:40">
+                <v-text-field
+                v-model="firstname"
+                :error-messages="errors"
+                label="Prénom"
+                required
+                ></v-text-field>
+              </ValidationProvider>
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+              class="py-0"
+              >
+              <ValidationProvider v-slot="{ errors }" name="lastname" rules="required|max:40">
+                <v-text-field
+                v-model="lastname"
+                :error-messages="errors"
+                label="Nom"
+                required
+                ></v-text-field>
+              </ValidationProvider>
+                </v-col>
+            </v-row>
+
+          <ValidationProvider v-slot="{ errors }" name="phone" rules="required|max:12">
             <v-text-field
             v-model="phone"
             :counter="12"
@@ -27,29 +43,30 @@
             label="Téléphone"
             required
             ></v-text-field>
-        </ValidationProvider>
-        <ValidationProvider v-slot="{ errors }" name="email" rules="required|email">
+          </ValidationProvider>
+          <ValidationProvider v-slot="{ errors }" name="email" rules="required|email">
             <v-text-field
             v-model="email"
             :error-messages="errors"
             label="E-mail"
             required
             ></v-text-field>
-        </ValidationProvider>
-        <ValidationProvider v-slot="{ errors }" name="address" rules="required">
-            <v-text-field
+          </ValidationProvider>
+          <ValidationProvider v-slot="{ errors }" name="address" rules="required">
+            <v-textarea
+            auto-grow
+            rows="2"
             v-model="address"
             :error-messages="errors"
             label="Adresse"
             required
-            ></v-text-field>
-        </ValidationProvider>
-
-        <v-btn class="mr-4" @click="submit">Valider la commande</v-btn>
-        <v-btn @click="clear">clear</v-btn>
-        </form>
+            ></v-textarea>
+          </ValidationProvider>
+          <v-btn class="mt-5 success" x-large block @click="submit">Valider la commande</v-btn>
+        </v-container>
+      </form>
     </ValidationObserver>
-    </v-card>
+  </v-card>
 </template>
 
 <script>
@@ -60,17 +77,17 @@
 
   extend('required', {
     ...required,
-    message: '{_field_} can not be empty',
+    message: '{_field_} ne peut être vide',
   })
 
   extend('max', {
     ...max,
-    message: '{_field_} may not be greater than {length} characters',
+    message: '{_field_} ne peut faire plus de  {length} caractères',
   })
 
   extend('email', {
     ...email,
-    message: 'Email must be valid',
+    message: 'Email doit être valide',
   })
 
   export default {
@@ -90,14 +107,6 @@
     methods: {
       submit () {
         this.$refs.observer.validate()
-      },
-      clear () {
-        this.name = ''
-        this.lastname = ''
-        this.phone = ''
-        this.email = ''
-        this.address = null
-        this.$refs.observer.reset()
       },
       saveClient () {
         let client = {
