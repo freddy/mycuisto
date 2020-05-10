@@ -1,7 +1,7 @@
 <template>
   <div class="order">
     <div class="container">
-        <h2>Contenu de la commande:</h2>
+        <h2>Contenu de la commande</h2>
         <p>Passez commande afin d'être livré dans les prochains jours</p>
         <v-row>
           <v-col>
@@ -14,9 +14,9 @@
               <v-divider class="mb-3" />
               <h3>Envie de vous régaler d'avantage ?</h3>
               <div class="row">
-              <div class="col-sm-4" v-for="(product, $productIndex) of getNotInCartProducts" :key="'product-'+$productIndex" >
-                <ProductCard :product="product" />
-              </div>
+                <div class="col-md-6" v-for="(product, $productIndex) of getNotInCartProducts" :key="'product-'+$productIndex" >
+                  <ProductCard :product="product" />
+                </div>
               </div>
             </template>
           </v-col>

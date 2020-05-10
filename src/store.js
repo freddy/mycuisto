@@ -17,6 +17,9 @@ export default new Vuex.Store({
     client
   },
   getters: {
+    topProducts: state => {
+      return state.catalogue.products.filter(e => e.top === true)
+    },
     getCartProducts: state => {
       return state.cart.map(c => {
         return {

@@ -1,7 +1,7 @@
 <template>
     <v-card
       class="mx-auto"
-      max-width="320"
+      width="320"
     >
       <v-img
         :src="getImgUrl(product.image_path)"

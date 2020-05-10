@@ -10,14 +10,12 @@
         justify="center"
       >
         <v-col class="text-center" cols="12">
-          <h1 class="display-1 font-weight-thin mb-4 font-weight-bold">Bon Appétit !</h1>
-          <h4 class="subheading"> Massimo confectionne chaque week-ends des spécialités italiennes pratiques pour manger chez vous le soir</h4>
+          <h1 style="text-shadow: 0 0 10px #000000" class="display-2 font-weight-thin mb-4 font-weight-bold">Bon Appétit !</h1>
+          <h4 style="text-shadow: 0 0 10px #000000" class="subheading">Chaque semaine, Massimo confectionne des spécialités italiennes à manger chez vous le soir</h4>
           <v-btn
-            color="white"
-            text
-            rounded
-            class="my-2"
-            to="/order"
+            color="primary"
+            class="mt-12"
+            :to="{ name: 'panier' }"
           >
           Passer commande
         </v-btn>
@@ -26,10 +24,11 @@
     </v-parallax>
 
     <v-container fluid>
+      <h2 class="display-1 text-center py-2 font-italic font-weight-light	">Les suggestions du moment</h2>
       <v-row dense>
          <v-col
           class="d-flex center"
-          v-for="(product, $productKey) of catalogue.products"
+          v-for="(product, $productKey) of topProducts"
           :key="product.title"
           :cols="product.flex"
         >
@@ -41,14 +40,15 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 import ProductCard from '@/components/ProductCard.vue'
 
 export default {
   components: { ProductCard },
   computed: {
-    ...mapState(['catalogue'])
+    ...mapState(['catalogue']),
+    ...mapGetters(['topProducts'])
   }
 }
 </script>
