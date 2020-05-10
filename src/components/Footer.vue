@@ -25,12 +25,12 @@
         </v-btn>
       </v-card-title>
 
-      <v-container fluid>
+      <v-container>
         <v-row
-          align="center"
           justify="center"
+          align="center"
         >
-          <v-col cols="4">
+          <v-col cols="12" md="4" sm="12">
             <v-card
               class="black--text"
               light
@@ -59,7 +59,10 @@
           <v-col
             v-for="(conf) in column"
             :key="`${conf.key}-footer-column${conf.key}`"
-            :cols="`${conf.size}`"
+            col="12"
+            :md="`${conf.size}`"
+            sm="6"
+            style="pa-2"
           >
             <div
               class="my-2"
