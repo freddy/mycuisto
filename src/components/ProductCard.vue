@@ -24,7 +24,7 @@
           small
           raised
           color="primary"
-          @click="addToCart($event, product.id)"
+          @click.prevent="addToCart($event, product.id)"
         >
           <v-icon class="mr-1" size="medium">mdi-cart</v-icon>
           Ajouter
@@ -40,12 +40,12 @@ export default {
     addToCart(e, product_id) {
         this.$store.commit('CREATE_CART_ITEM', { product_id })
         // redirect to order page
-        if (this.$router.currentRoute.name != 'order') {
-            this.$router.push({ name: 'order' })
+        if (this.$router.currentRoute.name != 'panier') {
+            this.$router.push({ name: 'panier' })
         }
     },
     getImgUrl(pic) {
-      return require('../assets/images/'+pic)
+      return require('@/assets/images/'+pic)
     }
   },
   filters: {

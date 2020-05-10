@@ -46,14 +46,19 @@ export default new Vuex.Store({
       }
     },
 
-    UPDATE_QUANTITY (state, { product_id, quantity }) {
+    UPDATE_QUANTITY (state, { product_id, mode }) {
       let index = state.cart.findIndex((e) => e.product_id === product_id);
 
       if (index !== -1) {
-        if (quantity !== 0) {
-          state.cart[index].quantity = quantity;
+        if (mode == 'decrease') {
+          if (state.cart[index].quantity == 1) {
+            // remove the product from the cart
+            state.cart.splice(index, 1);
+          } else {
+            state.cart[index].quantity -= 1;
+          }
         } else {
-          state.cart.splice(index, 1);
+          state.cart[index].quantity += 1;
         }
       }
     },

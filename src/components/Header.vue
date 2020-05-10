@@ -1,14 +1,23 @@
 <template>
-  <v-app-bar app color="primary" dark>
-    <v-toolbar-title
-    >
-    <v-btn
-      text
-      to="/"
-      large
-    >
-      My Cuisto
-    </v-btn>
+  <v-app-bar
+    app
+    dense
+    color="#F1F1F1">
+
+    <v-toolbar-title>
+      <v-btn
+        link
+        text
+        exact
+        :to="{ name: 'home' }">
+        <v-img
+          class="float-left mr-3"
+          width="24"
+          :src="require('@/assets/images/logo-mycuisto.png')"
+          alt="logo"
+        />
+        My Cuisto
+      </v-btn>
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-btn
