@@ -70,7 +70,7 @@
                 text large
                 :to="link.path"
               >
-                {{ link.title }}
+                {{ link.name }}
               </v-btn>
             </div>
           </v-col>
@@ -86,6 +86,7 @@
 
 <script>
 export default {
+  props: [ "links" ],
   data() {
     return {
       icons: [
@@ -102,20 +103,12 @@ export default {
         {
           'key': '1',
           "size": "3",
-          "data": [
-            {'title': 'À propos', 'path': "qui-sommes-nous"},
-            {'title': 'Mentions legales', 'path': "cgu"},
-            {'title': 'Consultez la FAQ', 'path': "faq"},
-          ]
+          "data": this.links.slice(0,3)
         },
         {
           'key': '2',
           "size": "4",
-          "data": [
-            {'title': 'Politique de confidentialité', 'path': "confidentialite"},
-            {'title': 'Plan du site', 'path': "sitemap"},
-            {'title': 'Contact', 'path': "contact"},
-          ]
+          "data": this.links.slice(3,6)
         },
       ],
     }

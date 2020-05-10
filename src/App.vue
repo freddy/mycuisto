@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <Header :links="links" />
+    <Header :links="header_links" />
     <v-content>
       <v-container
         class="pa-0"
@@ -9,7 +9,7 @@
         <router-view></router-view>
       </v-container>
     </v-content>
-    <Footer />
+    <Footer :links="footer_links" />
     <!-- <v-footer color="primary lighten-1" padless>
       <v-layout justify-center wrap>
         <v-btn
@@ -39,15 +39,26 @@ export default {
   components: { Header, Footer },
   created() {
     this.$router.options.routes.forEach(route => {
-      this.links.push({
-        name: route.name,
-        path: route.path
-      })
+      if (this.header.includes(route.name)) {
+        this.header_links.push({
+          name: route.name,
+          path: route.path
+        })
+      }
+      else if (this.footer.includes(route.name)) {
+        this.footer_links.push({
+          name: route.name,
+          path: route.path
+        })
+      }
     })
   },
   data() {
     return {
-          links: []
+      header: ['panier'],
+      footer: ['a propos', 'mentions legales', 'consultez la faq', 'politique de confidentialité', 'plan du site', 'contact'],
+      header_links: [],
+      footer_links: []
     }
   },
   methods: {
