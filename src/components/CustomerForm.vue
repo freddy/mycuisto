@@ -1,6 +1,6 @@
 <template>
   <v-card outlined>
-    <v-card-title><h4>Coordonnées</h4></v-card-title>
+    <v-card-title><h4>Livraison</h4></v-card-title>
     <ValidationObserver ref="observer">
       <form id="form-client" @submit.prevent="saveClient">
         <v-container class="pt-0">
@@ -62,6 +62,14 @@
             required
             ></v-textarea>
           </ValidationProvider>
+          <v-chip-group
+            v-model="deliveryDate"
+            active-class="deep-purple accent-4 white--text"
+            column
+          >
+            <v-icon class="mr-3">mdi-calendar-clock</v-icon>
+            <v-chip v-for="(day, $index) of days" :key="'day-'+$index">{{ day }}</v-chip>
+          </v-chip-group>
           <v-btn class="mt-5 success" x-large block @click="submit">Valider la commande</v-btn>
         </v-container>
       </form>
@@ -102,7 +110,23 @@
             phone: "",
             email: "",
             address: "",
+            deliveryDate: ""
         }
+    },
+    computed: {
+      days: () => {
+        let result = []
+        let date = new Date()
+        for (let i = 1; i < 4; i++) {
+          date.setDate(date.getDate() + 1)
+          let month = ('0' + (date.getMonth() + 1)).slice(-2)
+          let day = ('0' + date.getDate()).slice(-2)
+          let formattedDate = day + '/' + month
+
+          result.push(formattedDate)
+        }
+        return result
+      }
     },
     methods: {
       submit () {
