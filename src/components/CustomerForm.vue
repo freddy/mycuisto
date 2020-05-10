@@ -1,6 +1,5 @@
 <template>
   <v-card outlined>
-<<<<<<< HEAD
     <v-card-title><h4>Coordonnées</h4></v-card-title>
     <ValidationObserver ref="observer">
       <form id="form-client" @submit.prevent="saveClient">
@@ -10,16 +9,6 @@
               cols="12"
               md="6"
               class="py-0"
-=======
-    <v-card-title class="pb-0"><h4>Coordonnées</h4></v-card-title>
-    <ValidationObserver ref="observer">
-      <form id="form-client" @submit.prevent="saveClient">
-        <v-container class="pt-0">
-          <v-row>
-            <v-col
-              cols="12"
-              md="6"
->>>>>>> master
               >
               <ValidationProvider v-slot="{ errors }" name="firstname" rules="required|max:40">
                 <v-text-field
@@ -33,10 +22,7 @@
             <v-col
               cols="12"
               md="6"
-<<<<<<< HEAD
               class="py-0"
-=======
->>>>>>> master
               >
               <ValidationProvider v-slot="{ errors }" name="lastname" rules="required|max:40">
                 <v-text-field
