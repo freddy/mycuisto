@@ -9,6 +9,7 @@ import Confidentiel from './views/Confidentiel.vue'
 import Sitemap from './views/Sitemap.vue'
 import Contact from './views/Contact.vue'
 import CartValidation from './views/CartValidation.vue'
+import Dashboard from './views/admin/Dashboard.vue'
 
 Vue.use(Router)
 
@@ -61,6 +62,11 @@ export default new Router({
       path: '/validation',
       name: 'cart_validation',
       component: CartValidation
+    },
+    {
+      path: '/cuisine/tableau-de-bord',
+      name: 'dashboard',
+      component: Dashboard
     }
   ]
 })

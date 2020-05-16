@@ -12,7 +12,7 @@
               >
               <ValidationProvider v-slot="{ errors }" name="firstname" rules="required|max:40">
                 <v-text-field
-                v-model="firstname"
+                v-model="customer.firstname"
                 :error-messages="errors"
                 label="Prénom"
                 required
@@ -26,7 +26,7 @@
               >
               <ValidationProvider v-slot="{ errors }" name="lastname" rules="required|max:40">
                 <v-text-field
-                v-model="lastname"
+                v-model="customer.lastname"
                 :error-messages="errors"
                 label="Nom"
                 required
@@ -37,7 +37,7 @@
 
           <ValidationProvider v-slot="{ errors }" name="phone" rules="required|max:12">
             <v-text-field
-            v-model="phone"
+            v-model="customer.phone"
             :counter="12"
             :error-messages="errors"
             label="Téléphone"
@@ -46,7 +46,7 @@
           </ValidationProvider>
           <ValidationProvider v-slot="{ errors }" name="email" rules="required|email">
             <v-text-field
-            v-model="email"
+            v-model="customer.email"
             :error-messages="errors"
             label="E-mail"
             required
@@ -56,14 +56,14 @@
             <v-textarea
             auto-grow
             rows="2"
-            v-model="address"
+            v-model="customer.address"
             :error-messages="errors"
             label="Adresse"
             required
             ></v-textarea>
           </ValidationProvider>
           <v-chip-group
-            v-model="deliveryDate"
+            v-model="order.deliveryDate"
             active-class="deep-purple accent-4 white--text"
             column
           >
@@ -78,6 +78,7 @@
 </template>
 
 <script>
+  import axios from 'axios';
   import { required, email, max } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
 
@@ -105,12 +106,17 @@
     },
     data() {
         return {
+          customer: {
             firstname: "",
             lastname: "",
             phone: "",
             email: "",
             address: "",
-            deliveryDate: ""
+          },
+          order: {
+            deliveryDate: "",
+          },
+          errors: []
         }
     },
     computed: {
@@ -131,6 +137,13 @@
     methods: {
       submit () {
         this.$refs.observer.validate()
+        axios.post(`http://localhost:3000/orders`,
+          this.customer
+        )
+        .then({})
+        .catch(e => {
+          this.errors.push(e)
+        })
       },
       saveClient () {
         let client = {
