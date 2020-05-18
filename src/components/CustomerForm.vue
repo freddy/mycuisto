@@ -2,7 +2,7 @@
   <v-card outlined>
     <v-card-title><h4>Livraison</h4></v-card-title>
     <ValidationObserver ref="observer">
-      <form id="form-client" @submit.prevent="saveClient">
+      <form id="form-client">
         <v-container class="pt-0">
           <v-row class="py-0">
             <v-col
@@ -12,7 +12,7 @@
               >
               <ValidationProvider v-slot="{ errors }" name="firstname" rules="required|max:40">
                 <v-text-field
-                v-model="customer.firstname"
+                v-model="order.customer.firstname"
                 :error-messages="errors"
                 label="Prénom"
                 required
@@ -24,9 +24,9 @@
               md="6"
               class="py-0"
               >
-              <ValidationProvider v-slot="{ errors }" name="lastname" rules="required|max:40">
+              <ValidationProvider v-slot="{ errors }" name="lastname">
                 <v-text-field
-                v-model="customer.lastname"
+                v-model="order.customer.lastname"
                 :error-messages="errors"
                 label="Nom"
                 required
@@ -37,7 +37,7 @@
 
           <ValidationProvider v-slot="{ errors }" name="phone" rules="required|max:12">
             <v-text-field
-            v-model="customer.phone"
+            v-model="order.customer.phone"
             :counter="12"
             :error-messages="errors"
             label="Téléphone"
@@ -46,7 +46,7 @@
           </ValidationProvider>
           <ValidationProvider v-slot="{ errors }" name="email" rules="required|email">
             <v-text-field
-            v-model="customer.email"
+            v-model="order.customer.email"
             :error-messages="errors"
             label="E-mail"
             required
@@ -56,20 +56,25 @@
             <v-textarea
             auto-grow
             rows="2"
-            v-model="customer.address"
+            v-model="order.customer.address"
             :error-messages="errors"
             label="Adresse"
             required
             ></v-textarea>
           </ValidationProvider>
-          <v-chip-group
-            v-model="order.deliveryDate"
-            active-class="deep-purple accent-4 white--text"
-            column
-          >
-            <v-icon class="mr-3">mdi-calendar-clock</v-icon>
-            <v-chip v-for="(day, $index) of days" :key="'day-'+$index">{{ day }}</v-chip>
-          </v-chip-group>
+          <ValidationProvider v-slot="{ errors }" name="deliveryDate">
+            <v-select
+              prepend-icon="mdi-calendar-clock"
+              label="Date de livraison"
+              :error-messages="errors"
+              v-model="order.deliveryDate"
+              :items="days"
+              hint="Je vous contacte directement pour définir l'heure de livraison"
+                        persistent-hint
+
+            >
+            </v-select>
+          </ValidationProvider>
           <v-btn class="mt-5 success" x-large block @click="submit">Valider la commande</v-btn>
         </v-container>
       </form>
@@ -81,6 +86,7 @@
   import axios from 'axios';
   import { required, email, max } from 'vee-validate/dist/rules'
   import { extend, ValidationObserver, ValidationProvider, setInteractionMode } from 'vee-validate'
+  import { mapState } from 'vuex'
 
   setInteractionMode('eager')
 
@@ -106,66 +112,59 @@
     },
     data() {
         return {
-          customer: {
-            firstname: "",
-            lastname: "",
-            phone: "",
-            email: "",
-            address: "",
-          },
           order: {
-            deliveryDate: "",
+            customer: {
+              firstname: "f",
+              lastname: "l",
+              phone: "1",
+              email: "f@f.com",
+              address: "address",
+            },
+            cart: this.$store.state.cart,
+            deliveryDate: ""
           },
           errors: []
         }
     },
     computed: {
+      ...mapState(['cart']),
       days: () => {
         let result = []
         let date = new Date()
-        for (let i = 1; i < 4; i++) {
+        for (let i = 1; i < 5; i++) {
           date.setDate(date.getDate() + 1)
-          let month = ('0' + (date.getMonth() + 1)).slice(-2)
-          let day = ('0' + date.getDate()).slice(-2)
-          let formattedDate = day + '/' + month
+          // visible date
+          let month = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'][date.getMonth()]
+          let dayNumber = ('0' + date.getDate()).slice(-2)
+          let dayText = ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'][date.getDay()]
+          let relativeDay = ['demain', 'après-demain', 'dans deux jours', 'dans trois jours'][i-1]
+          let formattedDate = dayText+', '+dayNumber + ' ' + month + ' ('+relativeDay+')'
+          // saved date
+          let savedDate = new Date(date).toISOString()
 
-          result.push(formattedDate)
+          result.push({
+            text: formattedDate,
+            value: savedDate
+          })
         }
         return result
       }
     },
     methods: {
       submit () {
-        this.$refs.observer.validate()
-        axios.post(`http://localhost:3000/orders`,
-          this.customer
-        )
-        .then({})
-        .catch(e => {
-          this.errors.push(e)
-        })
-      },
-      saveClient () {
-        let client = {
-            firstname: this.firstname,
-            lastname: this.lastname,
-            phone: this.phone,
-            email: this.email,
-            address: this.address,
+        if (this.$refs.observer.validate()) {
+          axios.post('http://localhost:3000/orders', this.order)
+          .then(
+            this.$router.push({ name: 'cart_validation' })
+          )
+          .catch(e => {
+            let errors = {}
+            Object.values(e.response.data.errors).forEach((e) => {
+              errors[e.path] = [e.message]
+            })
+            this.$refs.observer.setErrors(errors)
+          })
         }
-
-        this.firstname = null,
-        this.lastname = null,
-        this.phone = null,
-        this.email = null,
-        this.address = null,
-
-        this.$store.commit(
-            'SAVE_CLIENT',
-            client
-        );
-
-        this.$router.push({ name: 'cart_validation' })
       }
     }
   }

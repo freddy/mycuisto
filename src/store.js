@@ -28,6 +28,12 @@ export default new Vuex.Store({
         }
       })
     },
+    getTotalAmount: (state, getters) => {
+      return getters.getCartProducts.reduce(
+        (acc, cart_product) => {
+          return acc + cart_product.quantity * cart_product.product.price
+      }, 0)
+    },
     /*getCartProduct: state => (id) => {
       return state.getters.getCartProducts.find(e => e.product.id == id)
     },*/

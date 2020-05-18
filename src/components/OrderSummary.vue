@@ -22,7 +22,7 @@
                     <tr>
                         <th scope="row" class="subtitle-1 font-weight-bold">Total</th>
                         <td></td>
-                        <th class="text-center subtitle-1 font-weight-bold">{{ totalPrice | currencyFormat }}</th>
+                        <th class="text-center subtitle-1 font-weight-bold">{{ getTotalAmount | currencyFormat }}</th>
                     </tr>
                     </tbody>
                 </template>
@@ -41,13 +41,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['getCartProducts']),
-    totalPrice () {
-      return this.$store.getters.getCartProducts.reduce(
-        (acc, cart_product) => {
-          return acc + cart_product.quantity * cart_product.product.price
-      }, 0)
-    }
+    ...mapGetters(['getCartProducts', 'getTotalAmount'])
   }
 }
 </script>

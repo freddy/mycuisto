@@ -37,7 +37,7 @@ export default {
   },
   data() {
     return {
-      header: ['panier'],
+      header: ['panier', 'dashboard'],
       footer: ['a propos', 'mentions legales', 'consultez la faq', 'politique de confidentialité', 'plan du site', 'contact'],
       header_links: [],
       footer_links: []

@@ -49,8 +49,8 @@ export default {
       this.orders = response.data.map(
         e => {
           return {
-            date: '',
-            address: e.address,
+            date: e.deliveryDate,
+            address: e.customer.address,
             amount: '',
             status: 'New',
           }
