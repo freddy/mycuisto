@@ -6,7 +6,7 @@
         class="pa-0"
         fluid
       >
-        <router-view></router-view>
+        <router-view />
       </v-container>
     </v-content>
     <Footer :links="footer_links" />
@@ -19,7 +19,15 @@ import Footer from '@/components/Footer.vue'
 export default {
   name: 'App',
   components: { Header, Footer },
-  created() {
+  data () {
+    return {
+      header: ['panier', 'dashboard'],
+      footer: ['a propos', 'mentions legales', 'consultez la faq', 'politique de confidentialité', 'plan du site', 'contact'],
+      header_links: [],
+      footer_links: []
+    }
+  },
+  created () {
     this.$router.options.routes.forEach(route => {
       if (this.header.includes(route.name)) {
         this.header_links.push({
@@ -35,16 +43,8 @@ export default {
       }
     })
   },
-  data() {
-    return {
-      header: ['panier', 'dashboard'],
-      footer: ['a propos', 'mentions legales', 'consultez la faq', 'politique de confidentialité', 'plan du site', 'contact'],
-      header_links: [],
-      footer_links: []
-    }
-  },
   methods: {
-    toggleTheme() {
+    toggleTheme () {
       this.$vuetify.theme.themes.dark.anchor = '#41B883'
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
     }

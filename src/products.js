@@ -1,7 +1,6 @@
 export default {
     name: 'catalogue',
-    products: [
-        {
+    products: [{
             id: 1,
             title: "Lasagne alla siciliana",
             description: "Sauce tomate, sauce bolognese, champignons, parmigiano, petits pois, œuf dur",

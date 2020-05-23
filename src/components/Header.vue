@@ -2,14 +2,15 @@
   <v-app-bar
     app
     dense
-    color="#F1F1F1">
-
+    color="#F1F1F1"
+  >
     <v-toolbar-title>
       <v-btn
         link
         text
         exact
-        :to="{ name: 'home' }">
+        :to="{ name: 'home' }"
+      >
         <v-img
           class="float-left mr-3"
           width="24"
@@ -19,7 +20,7 @@
         My Cuisto
       </v-btn>
     </v-toolbar-title>
-    <v-spacer></v-spacer>
+    <v-spacer />
     <v-btn
       v-for="link in links"
       :key="`${link.name}-header-link`"
@@ -29,8 +30,11 @@
     >
       {{ link.name }}
     </v-btn>
-    <v-btn text rounded>
-      <v-icon v-html="'$vuetify.icons.phone'" />
+    <v-btn
+      text
+      rounded
+    >
+      <v-icon> mdi-phone </v-icon>
       06 12345678
     </v-btn>
   </v-app-bar>
@@ -38,7 +42,8 @@
 
 <script>
 export default {
-  props: [ "links" ]
+  // eslint-disable-next-line vue/require-prop-types
+  props: ["links"]
 }
 </script>
 

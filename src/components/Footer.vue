@@ -11,7 +11,7 @@
       <v-card-title class="primary py-4 text-center white--text">
         <strong class="subheading">Connectez-vous avec nous sur les réseaux sociaux!</strong>
 
-        <v-spacer></v-spacer>
+        <v-spacer />
 
         <v-btn
           v-for="icon in icons"
@@ -21,7 +21,9 @@
           icon
           @click="goToSocial(icon.link)"
         >
-          <v-icon size="24px">{{ icon.icon }}</v-icon>
+          <v-icon size="24px">
+            {{ icon.icon }}
+          </v-icon>
         </v-btn>
       </v-card-title>
 
@@ -30,7 +32,11 @@
           justify="center"
           align="center"
         >
-          <v-col cols="12" md="4" sm="12">
+          <v-col
+            cols="12"
+            md="4"
+            sm="12"
+          >
             <v-card
               class="black--text"
               light
@@ -42,20 +48,22 @@
                   size="125"
                   tile
                 >
-                  <v-img :src="require('@/assets/images/massimo.jpg')"></v-img>
+                  <v-img :src="require('@/assets/images/massimo.jpg')" />
                 </v-avatar>
                 <div>
                   <v-card-title
                     class="headline"
                     v-text="owner_card.name"
-                  ></v-card-title>
+                  />
 
-                  <v-card-subtitle class="black--text" v-html="owner_card.description"></v-card-subtitle>
+                  <v-card-subtitle class="black--text">
+                    {{ owner_card.description }}
+                  </v-card-subtitle>
                 </div>
               </div>
             </v-card>
           </v-col>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-col
             v-for="(conf) in column"
             :key="`${conf.key}-footer-column${conf.key}`"
@@ -65,12 +73,13 @@
             style="pa-2"
           >
             <div
-              class="my-2"
               v-for="link in conf.data"
               :key="`${link.path}-footer-column${conf.key}-link`"
+              class="my-2"
             >
               <v-btn
-                text large
+                text
+                large
                 :to="link.path"
               >
                 {{ link.name }}
@@ -89,11 +98,12 @@
 
 <script>
 export default {
-  props: [ "links" ],
-  data() {
+  // eslint-disable-next-line vue/require-prop-types
+  props: ["links"],
+  data () {
     return {
       icons: [
-        {'icon': 'mdi-facebook', 'link': "https://www.facebook.com/comeprimaa"},
+        { 'icon': 'mdi-facebook', 'link': "https://www.facebook.com/comeprimaa" },
       ],
       owner_card: {
         'name': 'Massimo',
@@ -104,18 +114,18 @@ export default {
         {
           'key': '1',
           "size": "3",
-          "data": this.links.slice(0,3)
+          "data": this.links.slice(0, 3)
         },
         {
           'key': '2',
           "size": "4",
-          "data": this.links.slice(3,6)
+          "data": this.links.slice(3, 6)
         },
       ],
     }
   },
   methods: {
-    goToSocial(link) {
+    goToSocial (link) {
       return window.open(link);
     }
   }

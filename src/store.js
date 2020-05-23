@@ -2,7 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import catalogue from './products'
-import { saveStatePlugin } from './utils'
+import {
+  saveStatePlugin
+} from './utils'
 
 Vue.use(Vuex)
 
@@ -32,7 +34,7 @@ export default new Vuex.Store({
       return getters.getCartProducts.reduce(
         (acc, cart_product) => {
           return acc + cart_product.quantity * cart_product.product.price
-      }, 0)
+        }, 0)
     },
     /*getCartProduct: state => (id) => {
       return state.getters.getCartProducts.find(e => e.product.id == id)
@@ -42,20 +44,25 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    CREATE_CART_ITEM (state, { product_id }) {
+    CREATE_CART_ITEM(state, {
+      product_id
+    }) {
       let index = state.cart.findIndex((e) => e.product_id === product_id);
 
       if (index === -1) {
-          state.cart.push({
-            product_id: product_id,
-            quantity: 1
-          });
+        state.cart.push({
+          product_id: product_id,
+          quantity: 1
+        });
       } else {
         state.cart[index].quantity = parseInt(state.cart[index].quantity) + 1;
       }
     },
 
-    UPDATE_QUANTITY (state, { product_id, mode }) {
+    UPDATE_QUANTITY(state, {
+      product_id,
+      mode
+    }) {
       let index = state.cart.findIndex((e) => e.product_id === product_id);
 
       if (index !== -1) {
@@ -72,14 +79,20 @@ export default new Vuex.Store({
       }
     },
 
-    SAVE_CLIENT (state, { firstname, lastname, phone, email, address }) {
-        state.client.push({
-          firstname,
-          lastname,
-          phone,
-          email,
-          address
-        });
+    SAVE_CLIENT(state, {
+      firstname,
+      lastname,
+      phone,
+      email,
+      address
+    }) {
+      state.client.push({
+        firstname,
+        lastname,
+        phone,
+        email,
+        address
+      });
     },
 
   }
