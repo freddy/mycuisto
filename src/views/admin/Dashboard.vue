@@ -1,6 +1,5 @@
 <template>
   <div>
-    <AdminNav />
     <v-container fluid>
       <v-row justify="center">
         <v-spacer />
@@ -26,10 +25,8 @@
 
 <script>
 import axios from 'axios'
-import AdminNav from '@/components/admin/Navigation.vue'
 
 export default {
-  components: { AdminNav },
   data () {
     return {
       orders: [],

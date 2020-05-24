@@ -1,6 +1,10 @@
 <template>
   <v-app>
-    <Header :links="header_links" />
+    <Header
+      v-if="!this.$route.path.match('/cuisine/*')"
+      :links="header_links"
+    />
+    <AdminNav v-if="this.$route.path.match('/cuisine/*')" />
     <v-content>
       <v-container
         class="pa-0"
@@ -9,16 +13,21 @@
         <router-view />
       </v-container>
     </v-content>
-    <Footer :links="footer_links" />
+    <Footer
+      v-if="!this.$route.path.match('/cuisine/*')"
+      :links="footer_links"
+    />
   </v-app>
 </template>
 
 <script>
 import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
+import AdminNav from '@/components/admin/Navigation.vue'
+
 export default {
   name: 'App',
-  components: { Header, Footer },
+  components: { Header, Footer, AdminNav },
   data () {
     return {
       header: ['panier', 'dashboard'],
@@ -28,6 +37,7 @@ export default {
     }
   },
   created () {
+    console.log(this.$route.path)
     this.$router.options.routes.forEach(route => {
       if (this.header.includes(route.name)) {
         this.header_links.push({
