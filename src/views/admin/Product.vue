@@ -220,44 +220,14 @@ export default {
 
   methods: {
     initialize () {
-      this.products = [
-        {
-          id: 1,
-          title: "Lasagne alla siciliana",
-          description: "Sauce tomate, sauce bolognese, champignons, parmigiano, petits pois, œuf dur",
-          image_path: "lasagnes.png",
-          image_alt: "Plat de Lasagne",
-          price: "7.50",
-          top: true
-        },
-        {
-          id: 2,
-          title: "Arancini al ragù",
-          description: "Spécialité sicilienne boule de riz panée farcie de viande petit pois ,œuf dur et provolone",
-          image_path: "arancini.png",
-          image_alt: "",
-          price: "4.50",
-          top: true
-        },
-        {
-          id: 3,
-          title: "Arancini spinaci",
-          description: "Boule de riz farci aux épinards et provolone",
-          image_path: "arancini.png",
-          image_alt: "",
-          price: "4.50",
-          top: false
-        },
-        {
-          id: 4,
-          title: "Patons de pizza",
-          description: "",
-          image_path: "patons.png",
-          image_alt: "",
-          price: "2.50",
-          top: true
-        },
-      ]
+      axios
+        .get(`http://localhost:3000/products`)
+        .then((response) => {
+          this.products = response.data
+        })
+        .catch((e) => {
+          this.errors.push(e)
+        })
     },
 
     editItem (item) {
@@ -269,6 +239,12 @@ export default {
     deleteItem (item) {
       const index = this.products.indexOf(item)
       confirm('Are you sure you want to delete this item?') && this.products.splice(index, 1)
+      axios
+        .delete(`http://localhost:3000/products/${item._id}`, { data: item }).then(
+          // Observe the data keyword this time. Very important
+          // payload is the request body
+          // Do something
+        )
     },
 
     close () {
@@ -282,11 +258,14 @@ export default {
     save () {
       if (this.editedIndex > -1) {
         Object.assign(this.products[this.editedIndex], this.editedItem)
+        axios
+          .put(`http://localhost:3000/products/${this.editedItem._id}`)
+          .then()
+          .catch()
       } else {
         this.products.push(this.editedItem)
         axios.post('http://localhost:3000/products', this.editedItem)
-          .then(
-          )
+          .then()
           .catch()
       }
       this.close()
