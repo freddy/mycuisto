@@ -57,6 +57,30 @@
             </v-list-item-title>
           </v-list-item-content>
         </v-list-item>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-subtitle>
+              CMS
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item
+          v-for="c in cms"
+          :key="c.title"
+          link
+          :to="c.path"
+          exact
+        >
+          <v-list-item-icon>
+            <v-icon>{{ c.icon }}</v-icon>
+          </v-list-item-icon>
+
+          <v-list-item-content>
+            <v-list-item-title>
+              {{ c.title }}
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list>
 
       <template v-slot:append>
@@ -94,9 +118,31 @@ export default {
       },
       {
         title: 'Produits',
-        icon: 'mdi-image',
+        icon: 'mdi-barcode',
         path: {
           name: 'manage_product'
+        }
+      },
+      ],
+      cms: [{
+        title: 'Page d\'accueil',
+        icon: 'mdi-home-edit-outline',
+        path: {
+          name: '?'
+        }
+      },
+      {
+        title: 'Mentions legales',
+        icon: 'mdi-bank-outline',
+        path: {
+          name: '?'
+        }
+      },
+      {
+        title: 'FAQ',
+        icon: 'mdi-map-marker-question-outline',
+        path: {
+          name: '?'
         }
       },
       ],
