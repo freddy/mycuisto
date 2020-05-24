@@ -57,7 +57,7 @@
                   />
 
                   <v-card-subtitle class="black--text">
-                    {{ owner_card.description }}
+                    <span v-html="owner_card.description" />
                   </v-card-subtitle>
                 </div>
               </div>

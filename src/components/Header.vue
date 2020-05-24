@@ -32,7 +32,6 @@
     </v-btn> -->
     <v-tooltip
       bottom
-      open-on-click
       eager
     >
       <template v-slot:activator="{ on }">
