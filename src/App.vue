@@ -1,9 +1,6 @@
 <template>
   <v-app>
-    <Header
-      v-if="!this.$route.path.match('/cuisine/*')"
-      :links="header_links"
-    />
+    <Header v-if="!this.$route.path.match('/cuisine/*')" />
     <AdminNav v-if="this.$route.path.match('/cuisine/*')" />
     <v-content>
       <v-container
@@ -30,22 +27,14 @@ export default {
   components: { Header, Footer, AdminNav },
   data () {
     return {
-      header: ['panier', 'dashboard'],
       footer: ['a propos', 'mentions legales', 'consultez la faq', 'politique de confidentialité', 'plan du site', 'contact'],
-      header_links: [],
       footer_links: []
     }
   },
   created () {
     console.log(this.$route.path)
     this.$router.options.routes.forEach(route => {
-      if (this.header.includes(route.name)) {
-        this.header_links.push({
-          name: route.name,
-          path: route.path
-        })
-      }
-      else if (this.footer.includes(route.name)) {
+      if (this.footer.includes(route.name)) {
         this.footer_links.push({
           name: route.name,
           path: route.path

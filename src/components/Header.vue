@@ -21,7 +21,7 @@
       </v-btn>
     </v-toolbar-title>
     <v-spacer />
-    <v-btn
+    <!-- <v-btn
       v-for="link in links"
       :key="`${link.name}-header-link`"
       text
@@ -29,21 +29,60 @@
       :to="link.path"
     >
       {{ link.name }}
-    </v-btn>
-    <v-btn
-      text
-      rounded
+    </v-btn> -->
+    <v-tooltip
+      bottom
+      open-on-click
+      eager
     >
-      <v-icon> mdi-phone </v-icon>
-      06 12345678
-    </v-btn>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          icon
+          v-on="on"
+        >
+          <a
+            style="text-decoration:none;color:currentColor;"
+            href="tel:+336 12345678"
+          >
+            <v-icon>mdi-phone-outline</v-icon>
+          </a>
+        </v-btn>
+      </template>
+      <span>06 12345678</span>
+    </v-tooltip>
+    <v-tooltip
+      bottom
+      eager
+    >
+      <template v-slot:activator="{ on }">
+        <v-btn
+          icon
+          :to="{ name: 'panier' }"
+          v-on="on"
+        >
+          <v-icon>mdi-cart-outline</v-icon>
+        </v-btn>
+      </template>
+      <span>Mon Panier</span>
+    </v-tooltip>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          light
+          icon
+          :to="{ name: 'dashboard' }"
+          v-on="on"
+        >
+          <v-icon>mdi-cog-outline</v-icon>
+        </v-btn>
+      </template>
+      <span>Gestionnaire Administrateur</span>
+    </v-tooltip>
   </v-app-bar>
 </template>
 
 <script>
 export default {
-  // eslint-disable-next-line vue/require-prop-types
-  props: ["links"]
 }
 </script>
 
