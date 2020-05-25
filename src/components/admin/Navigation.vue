@@ -117,6 +117,13 @@ export default {
         }
       },
       {
+        title: 'Commandes',
+        icon: 'mdi-basket-outline',
+        path: {
+          name: 'manage_order'
+        }
+      },
+      {
         title: 'Produits',
         icon: 'mdi-barcode',
         path: {

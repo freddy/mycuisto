@@ -9,7 +9,9 @@ import Confidentiel from './views/Confidentiel.vue'
 import Sitemap from './views/Sitemap.vue'
 import Contact from './views/Contact.vue'
 import CartValidation from './views/CartValidation.vue'
+// Section Admin
 import Dashboard from './views/admin/Dashboard.vue'
+import AdminOrder from './views/admin/Order.vue'
 import AdminProducts from './views/admin/Product.vue'
 
 Vue.use(Router)
@@ -69,6 +71,11 @@ export default new Router({
       path: '/cuisine/tableau-de-bord',
       name: 'dashboard',
       component: Dashboard
+    },
+    {
+      path: '/cuisine/commandes',
+      name: 'manage_order',
+      component: AdminOrder
     },
     {
       path: '/cuisine/produits',
